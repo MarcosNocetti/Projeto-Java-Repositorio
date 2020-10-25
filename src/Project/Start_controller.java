@@ -19,10 +19,10 @@ public class Start_controller {
 
 	public  void start () {
 	try {
-		setPathString(JOptionPane.showInputDialog("Digite o caminho do arquivo:"));
-		receber_dados dados = new receber_dados();
-		dados.pegar_dados_arq(getPathString());
-		dados.exibir_elementos();
+		setPathString(JOptionPane.showInputDialog("Enter the file path:"));
+		Receive_datas data = new Receive_datas();
+		data.get_data_archives(getPathString());
+		data.see_elements();
 	} catch (Exception e) {
 		System.out.println("Error: " + e.getMessage());
 	}
