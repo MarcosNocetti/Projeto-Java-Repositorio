@@ -4,8 +4,14 @@ package Project;
 FileReader -> Classe padrão para ler uma String de dados */
 public class Main {
 	public static void main(String[] args) {
-		Start_controller start_controller = new Start_controller();
-		start_controller.start();
+		try {
+			Start_controller start_controller = new Start_controller();
+			start_controller.start();
+		} catch (Exception e) {
+				System.out.println("Error: " + e.getMessage());
+		}
+		
+
 		
 	}
 }

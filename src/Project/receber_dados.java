@@ -47,11 +47,17 @@ public class receber_dados {
 	}
 	
 	public void exibir_elementos() {
-		for (int i = 0; i <getListPalavras().size(); i++) {
-			getListPalavras().set(i, removeAcents(getListPalavras().get(i)));
-			getListPalavras().set(i, formatar_words(getListPalavras().get(i)));
-			System.out.println(getListPalavras().get(i));
-	}		
+		try {
+			for (int i = 0; i <getListPalavras().size(); i++) {
+				getListPalavras().set(i, removeAcents(getListPalavras().get(i)));
+				getListPalavras().set(i, formatar_words(getListPalavras().get(i)));
+				System.out.println(getListPalavras().get(i));
+		}
+			
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+		
 	}
 }
 	

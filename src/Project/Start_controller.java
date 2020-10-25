@@ -18,10 +18,15 @@ public class Start_controller {
 
 
 	public  void start () {
-	setPathString(JOptionPane.showInputDialog("Digite o caminho do arquivo:"));
-	receber_dados dados = new receber_dados();
-	dados.pegar_dados_arq(getPathString());
-	dados.exibir_elementos();
+	try {
+		setPathString(JOptionPane.showInputDialog("Digite o caminho do arquivo:"));
+		receber_dados dados = new receber_dados();
+		dados.pegar_dados_arq(getPathString());
+		dados.exibir_elementos();
+	} catch (Exception e) {
+		System.out.println("Error: " + e.getMessage());
+	}
+	
 	}
 		
 }
