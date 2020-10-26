@@ -1,17 +1,20 @@
 package Project;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.Normalizer;
 import java.util.ArrayList;
+
+
 
 public class Receive_datas {
 	
 	private ArrayList<String> listWords = new ArrayList<String>(); //Instanciando o ArrayList com a class words
 	
 	public void get_data_archives(String path) {	
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) { //Dessa maneira, já instancia os recursos no bloco try.
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"))) { //Dessa maneira, já instancia os recursos no bloco try.
 			//Primeira linha															//Quando terminar o bloco try ou cair no catch já haverá a desalocação dos recursos.
 			String line = br.readLine(); //Ler de linha a linha. ReadLine() le a string até a quebra de linha								
 			while (line != null) { //Ler até o final do arquivo.
