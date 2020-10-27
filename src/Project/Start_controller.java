@@ -22,7 +22,9 @@ public class Start_controller {
 		setPathString(JOptionPane.showInputDialog("Enter the file path:"));
 		Receive_datas data = new Receive_datas();
 		data.get_data_archives(getPathString());
-		data.see_elements();
+		data.see_elements(); //mostra a lista somente formatada (sem ser na ordem alfabetica)
+		data.see_alphabetic_list(); //mostra a lista na ordem alfabetica
+
 	} catch (Exception e) {
 		System.out.println("Error: " + e.getMessage());
 	}
