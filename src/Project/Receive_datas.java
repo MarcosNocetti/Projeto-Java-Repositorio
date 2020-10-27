@@ -18,7 +18,8 @@ public class Receive_datas {
 			//Primeira linha															//Quando terminar o bloco try ou cair no catch já haverá a desalocação dos recursos.
 			String line = br.readLine(); //Ler de linha a linha. ReadLine() le a string até a quebra de linha								
 			while (line != null) { //Ler até o final do arquivo.
-				String[] wordsFromline  = line.split(" "); //Recorta a string em partes dividindo por espaço em branco e armazena em um vetor.
+
+				String[] wordsFromline  = line.split("[!-.:-@\s]"); //Recorta a string em partes dividindo por espaço em branco e armazena em um vetor.
 				//Vai pegar cada word da linha, dividindo por espaço em branco, e armazenar em um vetor.
 				for(String word : wordsFromline) { //Para cada word na string wordsFromline faça:
 		            if(!"".equals(word.trim())) { //Se não for espaço em branco, salve na listWords
@@ -52,7 +53,7 @@ public class Receive_datas {
 	public void see_elements() {
 		try {
 			for (int i = 0; i <getlistWords().size(); i++) {
-				getlistWords().set(i, removeAcents(getlistWords().get(i)));
+				//getlistWords().set(i, removeAcents(getlistWords().get(i)));//FUNÇÃO PRA TIRAR ACENTUAÇÃO!!
 				getlistWords().set(i, formatar_words(getlistWords().get(i)));
 				System.out.println(getlistWords().get(i));
 		}
