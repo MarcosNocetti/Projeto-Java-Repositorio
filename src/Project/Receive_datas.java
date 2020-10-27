@@ -6,12 +6,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 
 public class Receive_datas {
 	
 	private ArrayList<String> listWords = new ArrayList<String>(); //Instanciando o ArrayList com a class words
+	private ArrayList<String> formatedList = new ArrayList<>(); //lista das palavras formatadas (sem acento, etc...)
+	private ArrayList<String> alphabeticList = new ArrayList<>(); //lista das palavras em ordem alfabetica
 	
 	public void get_data_archives(String path) {	
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"))) { //Dessa maneira, já instancia os recursos no bloco try.
@@ -55,7 +58,8 @@ public class Receive_datas {
 			for (int i = 0; i <getlistWords().size(); i++) {
 				//getlistWords().set(i, removeAcents(getlistWords().get(i)));//FUNÇÃO PRA TIRAR ACENTUAÇÃO!!
 				getlistWords().set(i, formatar_words(getlistWords().get(i)));
-				System.out.println(getlistWords().get(i));
+				//System.out.println(getlistWords().get(i));//exibindo as palavras da lista formatada
+				formatedList.add(i,getlistWords().get(i));//adicionando a palavra formatada na lista para depois ordenar alfabeticamente
 		}
 			
 		} catch (Exception e) {
@@ -63,6 +67,27 @@ public class Receive_datas {
 		}
 		
 	}
+	
+	// ------------------- ordem alfabetica -------------------------
+	
+		public ArrayList<String> alphabetic_order() {
+			Collections.sort(formatedList);
+			return formatedList;
+		}
+		
+		public void see_alphabetic_list() {
+			try {
+				for (int i = 0; i <alphabetic_order().size(); i++) {
+					alphabeticList.add(i,alphabetic_order().get(i));//adicionando a palavra na lista em ordem alfabetica
+					System.out.println(alphabetic_order().get(i));//exibindo as palavras em ordem alfabetica
+			}
+				
+			} catch (Exception e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+			
+		}
+	
 }
 	
 
