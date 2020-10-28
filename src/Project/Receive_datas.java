@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,9 +11,8 @@ import java.util.Collections;
 
 public class Receive_datas {
 	
-	private ArrayList<String> listWords = new ArrayList<String>(); //Instanciando o ArrayList com a class words
+	private ArrayList<String> listWords = new ArrayList<>(); //Instanciando o ArrayList com a class words
 	private ArrayList<String> formatedList = new ArrayList<>(); //lista das palavras formatadas (sem acento, etc...)
-	private ArrayList<String> alphabeticList = new ArrayList<>(); //lista das palavras em ordem alfabetica
 	
 	public void get_data_archives(String path) {	
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"))) { //Dessa maneira, já instancia os recursos no bloco try.
@@ -37,56 +35,72 @@ public class Receive_datas {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
-	public static String removeAcents(String words) { //CORSI -----> POE A LISTA P RECEBER
-	    return Normalizer.normalize(words, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
-	}
 	
-	public String formatar_words(String words) {
-		return words.toLowerCase();
-	}
-	
-	public ArrayList<String> getlistWords() {
-		return listWords;
-	}
-
-	public void setlistWords(ArrayList<String> listWords) {
-		this.listWords = listWords;
-	}
-	
-	public void see_elements() {
-		try {
-			for (int i = 0; i <getlistWords().size(); i++) {
-				//getlistWords().set(i, removeAcents(getlistWords().get(i)));//FUNÇÃO PRA TIRAR ACENTUAÇÃO!!
-				getlistWords().set(i, formatar_words(getlistWords().get(i)));
-				//System.out.println(getlistWords().get(i));//exibindo as palavras da lista formatada
-				formatedList.add(i,getlistWords().get(i));//adicionando a palavra formatada na lista para depois ordenar alfabeticamente
+		public String formatar_words(String words) {
+			return words.toLowerCase();
 		}
+		
+		public ArrayList<String> getlistWords() {
+			return listWords;
+		}
+	
+		public void setlistWords(ArrayList<String> listWords) {
+			this.listWords = listWords;
+		}
+		public ArrayList<String> getFormatedList() {
+		return formatedList;
+		}
+
+		public void setFormatedList(ArrayList<String> formatedList) {
+		this.formatedList = formatedList;
+		}
+	//C:\Users\jvcco\Desktop\Ex3_LuarDoSertao.txt
+	public void trat_elements() {
+		try {
+			// ------------------- Minuscula -------------------------
+			for (int i = 0; i <getlistWords().size(); i++) {
+				getlistWords().set(i, formatar_words(getlistWords().get(i)));
+				getFormatedList().add(i,getlistWords().get(i));
+			}
+		
+			// ------------------- Ordem alfabetica -------------------------
+			setFormatedList(alphabetic_order(getFormatedList()));//adicionando a palavra na lista em ordem alfabetica
+		
+			int i=0;
+			int j=0;
+			int t=0;
+			System.out.println(getlistWords());//exibindo as palavras da lista formatada
+			System.out.println(getFormatedList());//exibindo as palavras da lista formatada
+			//System.out.println(getlistWords().get(7));//exibindo as palavras da lista formatada
+			//System.out.println(getlistWords().get(18));//exibindo as palavras da lista formatada
+			
+			while(t<getlistWords().size()){
+				while(getFormatedList().get(i)!=getlistWords().get(j)){
+				  j++;
+				  }
+				  if(getFormatedList().get(i).equals(getlistWords().get(j))){
+		
+				   System.out.print(getFormatedList().get(i)+i);
+				   
+				   System.out.print("," + getlistWords().get(j+1)+j);
+				    
+				   }
+				    i++;
+				    j=0;
+				   
+				}
+				  
 			
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}
 		
 	}
-	
-	// ------------------- ordem alfabetica -------------------------
-	
-		public ArrayList<String> alphabetic_order() {
-			Collections.sort(formatedList);
-			return formatedList;
+		public ArrayList<String> alphabetic_order(ArrayList<String> lista) {
+			Collections.sort(lista);
+			return lista;
 		}
-		
-		public void see_alphabetic_list() {
-			try {
-				for (int i = 0; i <alphabetic_order().size(); i++) {
-					alphabeticList.add(i,alphabetic_order().get(i));//adicionando a palavra na lista em ordem alfabetica
-					System.out.println(alphabetic_order().get(i));//exibindo as palavras em ordem alfabetica
-			}
-				
-			} catch (Exception e) {
-				System.out.println("Error: " + e.getMessage());
-			}
-			
-		}
+	
 	
 }
 	
