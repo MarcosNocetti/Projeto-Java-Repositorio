@@ -82,7 +82,7 @@ public class Receive_datas {
 		
 				   System.out.print(getFormatedList().get(i)+i);
 				   
-				   System.out.print("," + getlistWords().get(j+1)+j);
+				   System.out.println("," + getlistWords().get(j+1)+j);
 				    
 				   }
 				    i++;
