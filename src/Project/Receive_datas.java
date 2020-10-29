@@ -4,66 +4,74 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 
-
+import javax.swing.JOptionPane;
 
 public class Receive_datas {
-	
-	private ArrayList<String> listWords = new ArrayList<String>(); //Instanciando o ArrayList com a class words
-	
-	public void get_data_archives(String path) {	
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"))) { //Dessa maneira, já instancia os recursos no bloco try.
-			//Primeira linha															//Quando terminar o bloco try ou cair no catch já haverá a desalocação dos recursos.
-			String line = br.readLine(); //Ler de linha a linha. ReadLine() le a string até a quebra de linha								
-			while (line != null) { //Ler até o final do arquivo.
 
-				String[] wordsFromline  = line.split("[!-.:-@\s]"); //Recorta a string em partes dividindo por espaço em branco e armazena em um vetor.
-				//Vai pegar cada word da linha, dividindo por espaço em branco, e armazenar em um vetor.
-				for(String word : wordsFromline) { //Para cada word na string wordsFromline faça:
-		            if(!"".equals(word.trim())) { //Se não for espaço em branco, salve na listWords
-		            	this.listWords.add(word);  //Adicionar o Objeto no ArrayList
-		            }
-				}
-				line = br.readLine(); //Quando line receber o null ele sai do arquivo. Significa que acabou o arquivo.
-			}
-			
-		} 
-		catch (IOException e) { //Classe genérica para o tratamento de erros de Entradas e Saídas (Input/Output)
-			System.out.println("Error: " + e.getMessage());
-		}
-	}
-	public static String removeAcents(String words) { //CORSI -----> POE A LISTA P RECEBER
-	    return Normalizer.normalize(words, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
-	}
-	
-	public String formatar_words(String words) {
+	private ArrayList<String> Graph_of_words = new ArrayList<>();
+	private ArrayList<String> Alphabetical_Order = new ArrayList<>();
+
+	public String format_words(String words) {
 		return words.toLowerCase();
 	}
-	
-	public ArrayList<String> getlistWords() {
-		return listWords;
+
+	public ArrayList<String> getGraph_of_words() {
+		return Graph_of_words;
 	}
 
-	public void setlistWords(ArrayList<String> listWords) {
-		this.listWords = listWords;
+	public void setGraph_of_words(ArrayList<String> Graph_of_words) {
+		this.Graph_of_words = Graph_of_words;
 	}
-	
-	public void see_elements() {
+
+	public ArrayList<String> getAlphabetical_Order() {
+		return Alphabetical_Order;
+	}
+
+	public void setAlphabetical_Order(ArrayList<String> arrayList) {
+		this.Alphabetical_Order = arrayList;
+	}
+
+	public ArrayList<String> alphabetic_order(ArrayList<String> list) {
+		Collections.sort(list);
+		return list;
+	}
+
+	public void get_data_archives(String path) {
+		// ------------------- Getting data from file.txt-------------------------
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"))) {
+			String line = br.readLine();
+			while (line != null) {
+				// ------------------- Removing punctuation-------------------------	
+				String[] wordsFromline = line.split("[!-.:-@\s]");
+				for (String word : wordsFromline) {
+					if (!"".equals(word.trim())) {
+						this.Graph_of_words.add(word);
+					}
+				}
+				line = br.readLine();
+			}
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null,"Erro:" + e);
+		}
+	}
+
+	public void process_elements() {
 		try {
-			for (int i = 0; i <getlistWords().size(); i++) {
-				//getlistWords().set(i, removeAcents(getlistWords().get(i)));//FUNÇÃO PRA TIRAR ACENTUAÇÃO!!
-				getlistWords().set(i, formatar_words(getlistWords().get(i)));
-				System.out.println(getlistWords().get(i));
-		}
-			
+			// ------------------- Lowercase Words -------------------------
+			for (int i = 0; i < getGraph_of_words().size(); i++) {
+				getGraph_of_words().set(i, format_words(getGraph_of_words().get(i)));
+				getAlphabetical_Order().add(i, getGraph_of_words().get(i));
+			}
+			// ------------------- Alphabetical order-------------------------
+			setAlphabetical_Order(alphabetic_order(getAlphabetical_Order()));
+
 		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
+			JOptionPane.showMessageDialog(null,"Erro:" + e);
 		}
-		
+
 	}
+
 }
-	
-
-
