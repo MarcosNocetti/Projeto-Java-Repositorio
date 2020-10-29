@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 
 
@@ -13,6 +17,14 @@ public class Receive_datas {
 	
 	private ArrayList<String> listWords = new ArrayList<>(); //Instanciando o ArrayList com a class words
 	private ArrayList<String> formatedList = new ArrayList<>(); //lista das palavras formatadas (sem acento, etc...)
+	
+	
+	public List<String> sem_duplicacao() {
+		Set<String> semDuplicidade = new LinkedHashSet<>(getFormatedList());
+		List<String> list = new ArrayList<>(semDuplicidade);//Transformei em lista novamente para conseguir utilizar o .get(0)
+		return list;
+	}
+	
 	
 	public void get_data_archives(String path) {	
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF8"))) { //Dessa maneira, já instancia os recursos no bloco try.
@@ -51,8 +63,9 @@ public class Receive_datas {
 		return formatedList;
 		}
 
-		public void setFormatedList(ArrayList<String> formatedList) {
-		this.formatedList = formatedList;
+
+		public void setFormatedList(ArrayList<String> arrayList) {
+		this.formatedList = (ArrayList<String>) arrayList;
 		}
 	//C:\Users\jvcco\Desktop\Ex3_LuarDoSertao.txt
 	public void trat_elements() {
@@ -66,30 +79,59 @@ public class Receive_datas {
 			// ------------------- Ordem alfabetica -------------------------
 			setFormatedList(alphabetic_order(getFormatedList()));//adicionando a palavra na lista em ordem alfabetica
 		
-			int i=0;
-			int j=0;
-			int t=0;
+
 			System.out.println(getlistWords());//exibindo as palavras da lista formatada
 			System.out.println(getFormatedList());//exibindo as palavras da lista formatada
-			//System.out.println(getlistWords().get(7));//exibindo as palavras da lista formatada
-			//System.out.println(getlistWords().get(18));//exibindo as palavras da lista formatada
+			System.out.println(sem_duplicacao());//Exibindo palavras da lista em ordem alfabetica sem repetição
+			//System.out.println(getlistWords().size());
+			//System.out.println(sem_duplicacao().size());
 			
-			while(t<getlistWords().size()){
-				while(getFormatedList().get(i)!=getlistWords().get(j)){
-				  j++;
-				  }
-				  if(getFormatedList().get(i).equals(getlistWords().get(j))){
-		
-				   System.out.print(getFormatedList().get(i)+i);
-				   
-				   System.out.println("," + getlistWords().get(j+1)+j);
-				    
-				   }
-				    i++;
-				    j=0;
-				   
+			//For percorrendo a ListWords inteira, salvando os indices de ocorrencias da palavra com em um array.
+		int count =0;
+		int cont_ocorrencias= 0;
+		int cont_repeticao =0;
+		 ArrayList<Integer> posicoes_vetor = new ArrayList<>();
+		 ArrayList<String> palavras = new ArrayList<>();
+			while(count < sem_duplicacao().size()) {
+				cont_ocorrencias =0;
+				cont_repeticao=0;
+				posicoes_vetor.clear();
+				palavras.clear();
+				//System.out.println(posicoes_vetor);
+				for(int i=0; i<getlistWords().size()-1;i++) {//Procurar e salvar os indices da primeira palavra
+					if(sem_duplicacao().get(count).equals(getlistWords().get(i))) {
+						posicoes_vetor.add(i);
+						cont_ocorrencias++;
+						//System.out.println("Entrou aqui2.");
+					}
 				}
-				  
+				if(cont_ocorrencias==1) {
+					System.out.println(sem_duplicacao().get(count)+","+getlistWords().get(posicoes_vetor.get(0)+1));
+					//System.out.println("Entrou aqui.3");
+				}
+				else {
+					for(int i=0;i<cont_ocorrencias;i++) {
+						//System.out.println("Entrou aqui.4");
+						if(cont_repeticao == 0) {
+							System.out.print(sem_duplicacao().get(count)+",");
+							System.out.print(getlistWords().get(posicoes_vetor.get(i)+1));
+							palavras.add(getlistWords().get(posicoes_vetor.get(i)+1));
+							cont_repeticao++;
+						}
+						//getlistWords().get(posicoes_vetor.get(i)+1).equals(getlistWords().get(posicoes_vetor.get(i-1)+1))
+						else if(palavras.contains(getlistWords().get(posicoes_vetor.get(i)+1))) {
+							continue;
+						}
+						else {
+							System.out.print(","+getlistWords().get(posicoes_vetor.get(i)+1));
+							palavras.add(getlistWords().get(posicoes_vetor.get(i)+1));
+						}
+					}
+					System.out.println();
+				}
+				count++;	
+			}
+		
 			
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
