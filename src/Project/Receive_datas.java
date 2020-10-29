@@ -1,14 +1,17 @@
 package Project;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
 
 
 
@@ -77,20 +80,19 @@ public class Receive_datas {
 		
 			// ------------------- Ordem alfabetica -------------------------
 			setFormatedList(alphabetic_order(getFormatedList()));//adicionando a palavra na lista em ordem alfabetica
-		
-
 			System.out.println(getlistWords());//exibindo as palavras da lista formatada
 			System.out.println(getFormatedList());//exibindo as palavras da lista formatada
 			System.out.println(sem_duplicacao());//Exibindo palavras da lista em ordem alfabetica sem repetição
-			//System.out.println(getlistWords().size());
-			//System.out.println(sem_duplicacao().size());
-			
+			//GRAVAR ARQUIVO .CSV
+			PrintWriter pWriter = new PrintWriter(new File("C:\\Users\\jvcco\\Desktop\\Projeto_MaisSaudeSJ\\sertao.csv"));
+			StringBuilder ab = new StringBuilder();
 			//For percorrendo a ListWords inteira, salvando os indices de ocorrencias da palavra com em um array.
-		int count =0;
-		int cont_ocorrencias= 0;
-		int cont_repeticao =0;
-		 ArrayList<Integer> posicoes_vetor = new ArrayList<>();
-		 ArrayList<String> palavras = new ArrayList<>();
+			int count =0;
+			int cont_ocorrencias= 0;
+			int cont_repeticao =0;
+			 ArrayList<Integer> posicoes_vetor = new ArrayList<>();
+			 ArrayList<String> palavras = new ArrayList<>();
+			 //MONTAR A LISTA
 			while(count < sem_duplicacao().size()) {
 				cont_ocorrencias =0;
 				cont_repeticao=0;
@@ -106,6 +108,7 @@ public class Receive_datas {
 				}
 				if(cont_ocorrencias==1) {
 					System.out.println(sem_duplicacao().get(count)+","+getlistWords().get(posicoes_vetor.get(0)+1));
+					ab.append(sem_duplicacao().get(count)+","+getlistWords().get(posicoes_vetor.get(0)+1)+'\r');
 					//System.out.println("Entrou aqui.3");
 				}
 				else {
@@ -116,21 +119,28 @@ public class Receive_datas {
 							System.out.print(getlistWords().get(posicoes_vetor.get(i)+1));
 							palavras.add(getlistWords().get(posicoes_vetor.get(i)+1));
 							cont_repeticao++;
+							ab.append(sem_duplicacao().get(count)+","+getlistWords().get(posicoes_vetor.get(i)+1));
 						}
-						//getlistWords().get(posicoes_vetor.get(i)+1).equals(getlistWords().get(posicoes_vetor.get(i-1)+1))
 						else if(palavras.contains(getlistWords().get(posicoes_vetor.get(i)+1))) {
 							continue;
 						}
 						else {
 							System.out.print(","+getlistWords().get(posicoes_vetor.get(i)+1));
 							palavras.add(getlistWords().get(posicoes_vetor.get(i)+1));
+							ab.append(","+getlistWords().get(posicoes_vetor.get(i)+1));
 						}
 					}
 					System.out.println();
+					ab.append("\r");
 				}
 				count++;	
 			}
+			
 		
+			
+			pWriter.write(ab.toString());
+			pWriter.close();
+			
 			
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
