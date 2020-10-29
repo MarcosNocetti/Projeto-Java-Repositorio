@@ -100,14 +100,14 @@ public class Write_Datas {
 		}
 	}
 
-	public void write_words() {
+	public void write_words(String pathString_CSV, String Name_file_CSV) {
 		try {
 			PrintWriter pWriter = new PrintWriter(
-					new File("C:\\Users\\jvcco\\Desktop\\Projeto_MaisSaudeSJ\\paraben2s.csv"));
+					new File(pathString_CSV)+"\\"+Name_file_CSV+".csv");
 			proper_word_outputs();// Proper output
 			pWriter.write(getbuilder_string().toString());
 			pWriter.close();
-			JOptionPane.showMessageDialog(null, "Finished write from File.CSV !");
+			JOptionPane.showMessageDialog(null, "Finished writing the file: "+Name_file_CSV+" in the path"+pathString_CSV+"\\"+Name_file_CSV+".csv");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro:" + e);
 		}
