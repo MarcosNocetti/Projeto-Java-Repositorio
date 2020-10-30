@@ -54,7 +54,7 @@ public class Receive_datas {
 				line = br.readLine();
 			}
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null,"Erro:" + e);
+			JOptionPane.showMessageDialog(null,"Error:" + e);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class Receive_datas {
 			setAlphabetical_Order(alphabetic_order(getAlphabetical_Order()));
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Erro:" + e);
+			JOptionPane.showMessageDialog(null,"Error:" + e);
 		}
 
 	}
