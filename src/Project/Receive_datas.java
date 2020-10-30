@@ -10,7 +10,7 @@ import java.util.Collections;
 import javax.swing.JOptionPane;
 
 public class Receive_datas {
-
+	
 	private ArrayList<String> Graph_of_words = new ArrayList<>();
 	private ArrayList<String> Alphabetical_Order = new ArrayList<>();
 
@@ -45,12 +45,7 @@ public class Receive_datas {
 			String line = br.readLine();
 			while (line != null) {
 				// ------------------- Removing punctuation-------------------------	
-				String[] wordsFromline = line.split("[!-.:-@\s]");
-				for (String word : wordsFromline) {
-					if (!"".equals(word.trim())) {
-						this.Graph_of_words.add(word);
-					}
-				}
+				
 				line = br.readLine();
 			}
 		} catch (IOException e) {
