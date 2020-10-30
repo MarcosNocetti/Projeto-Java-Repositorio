@@ -8,7 +8,7 @@ public class Main {
 			Start_controller start_controller = new Start_controller();
 			start_controller.start();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Erro:" + e);
+			JOptionPane.showMessageDialog(null,"Error:" + e);
 		}
 	}
 }
