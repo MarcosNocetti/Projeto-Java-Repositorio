@@ -70,14 +70,11 @@ public class Write_Datas {
 					}
 				}
 				if (count_occurrences == 1) {
-					// System.out.println(remove_duplication().get(count)+","+getGraph_of_words().get(positions_vector.get(0)+1));
 					getbuilder_string().append(remove_duplication().get(count) + ","
 							+ getGraph_of_words().get(positions_vector.get(0) + 1) + '\r');
 				} else {
 					for (int i = 0; i < count_occurrences; i++) {
 						if (count_repetition == 0) {
-							// System.out.print(remove_duplication().get(count)+",");
-							// System.out.print(getGraph_of_words().get(positions_vector.get(i)+1));
 							words.add(getGraph_of_words().get(positions_vector.get(i) + 1));
 							count_repetition++;
 							getbuilder_string().append(remove_duplication().get(count) + ","
@@ -85,18 +82,16 @@ public class Write_Datas {
 						} else if (words.contains(getGraph_of_words().get(positions_vector.get(i) + 1))) {
 							continue;
 						} else {
-							// System.out.print(","+getGraph_of_words().get(positions_vector.get(i)+1));
 							words.add(getGraph_of_words().get(positions_vector.get(i) + 1));
 							getbuilder_string().append("," + getGraph_of_words().get(positions_vector.get(i) + 1));
 						}
 					}
-					// System.out.println();
 					getbuilder_string().append("\r");
 				}
 				count++;
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Erro:" + e);
+			JOptionPane.showMessageDialog(null, "Error:" + e);
 		}
 	}
 
@@ -109,7 +104,7 @@ public class Write_Datas {
 			pWriter.close();
 			JOptionPane.showMessageDialog(null, "Finished writing the file: "+Name_file_CSV+" in the path"+pathString_CSV+"\\"+Name_file_CSV+".csv");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Erro:" + e);
+			JOptionPane.showMessageDialog(null, "Error:" + e);
 		}
 	}
 }
