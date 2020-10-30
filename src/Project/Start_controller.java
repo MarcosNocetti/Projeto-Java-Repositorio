@@ -41,7 +41,7 @@ public class Start_controller {
 			Write_Datas write_file_csv = new Write_Datas(data.getGraph_of_words(), data.getAlphabetical_Order()); //
 			write_file_csv.write_words(getPathString_CSV(),getName_file_CSV());
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Erro:" + e);
+			JOptionPane.showMessageDialog(null,"Error:" + e);
 		}
 
 	}
